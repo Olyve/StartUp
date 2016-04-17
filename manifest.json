@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "StartUp",
+  "version": "0.1",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": ["jquery-2.2.3.min.js", "content.js"]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "StartUp",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "tabs", "storage"
+  ]
+}
