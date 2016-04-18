@@ -9,10 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Set the event listener for the addUrlButton
   addUrlButton.addEventListener('click', function() {
-    console.log('Add Url Clicked');
-    chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function(tabs) {
+    chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
       var activeTabUrl = tabs[0].url;
-
 
       // Check if there are saved URL's in storage
       chrome.storage.sync.get(function(items) {
@@ -42,5 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }); // End storage.sync.get
     });// End tabs.query
   }); // end addUrlButton event listener
+
+  // Set the event listener for the clearAllButton
+  clearAllButton.addEventListener('click', function() {
+    savedUrls = [];
+    chrome.storage.sync.set({'urls': savedUrls}, function() {
+      if (chrome.runtime.lastError) {
+        console.error('StartUp Error: Could not clear Urls ' + chrome.runtime.lastError);
+      }
+    }); // End of storage.local.set
+  }); // End of clearAllButton event listener
 
 }); // End document event listener
