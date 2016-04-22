@@ -16,7 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.storage.sync.get(function(items) {
         if (items['urls']) { // Found URL's so add them to savedUrls
           savedUrls = items['urls'];
-          // Next add the current URL on to savedUrls
+          // Check if the url is already saved
+          for (var i = 0; i < savedUrls.length; i++) {
+            if (activeTabUrl === savedUrls[i]) {
+              console.error('StartUp Error: The link has already been saved.');
+              return; // Exit the current function without adding to the urls
+            }
+          }
+          // If the link is not already saved, add the current URL on to savedUrls
           savedUrls.push(activeTabUrl);
           chrome.storage.sync.set({'urls': savedUrls}, function() {
             if (chrome.runtime.lastError) {
@@ -28,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
           savedUrls.push(activeTabUrl);
           chrome.storage.sync.set({'urls': savedUrls}, function () {
             if (chrome.runtime.lastError) {
-              console.error('StartUp Error: Could not save Urls ' + chrome.runtime.lastError);
+              console.warn('StartUp Error: Could not save Urls ' + chrome.runtime.lastError);
             }
           })
         }
@@ -40,6 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
       }); // End storage.sync.get
     });// End tabs.query
   }); // end addUrlButton event listener
+
+  // Set the event listener for the deleteUrlButton
+  deleteUrlButton.addEventListener('click', function () {
+    // Grab the active tab
+    chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
+      // Store the active tab url
+      var activeTabUrl = tabs[0].url;
+      // Check if the url is stored, if so delete it
+      chrome.storage.sync.get(function(items) {
+        if (items['urls']) {
+          savedUrls = items['urls'];
+          savedUrls = savedUrls.filter(function(url){
+            return url !== activeTabUrl;
+          });
+          chrome.storage.sync.set({'urls': savedUrls}, function() {
+            if (chrome.runtime.lastError) {
+              console.error('StartUp Error: Could not save Urls ' + chrome.runtime.lastError);
+            }
+            // FIXME - Only for testing purposes.
+            for (var i = 0; i < savedUrls.length; i++) {
+              console.log(savedUrls[i]);
+            }
+          });
+        }
+      });
+    });
+  });
 
   // Set the event listener for the clearAllButton
   clearAllButton.addEventListener('click', function() {
