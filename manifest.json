@@ -1,15 +1,15 @@
 {
   "manifest_version": 2,
   "name": "StartUp",
-  "version": "0.1.1",
+  "version": "0.1.3",
 
   "description": "An extension designed to streamline your start up experience with Chrome!",
   "icons":{
-
+    "128": "Icons/icon128.png"
   },
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "Icons/icon19.png",
     "default_title": "StartUp",
     "default_popup": "popup.html"
   },
