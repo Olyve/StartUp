@@ -4,7 +4,7 @@ chrome.tabs.query({'currentWindow': true}, function(tabs) {
     for (var i = 0; i < items['urls'].length; i++) {
       if (i === 0) {
         // Check if the tab already has a url
-        if (tabs[0].url === '') {
+        if (tabs[0].url.length > 0) {
           chrome.tabs.update(tabs[0].id, {'url': items['urls'][i]});
         } else {
           chrome.tabs.create({'url': items['urls'][i]});
