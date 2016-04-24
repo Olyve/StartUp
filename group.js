@@ -1,5 +1,5 @@
 // Create the Group class
-function Group(name, urls) {
+var Group = function (name, urls) {
   this.name = name;
   this.urls = urls;
 };

@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
   var options = [];
-  var groups = [];
   var currentGroup;
 
   // Check for options array containing options

@@ -15,7 +15,7 @@
   },
 
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "group.js"]
   },
   "permissions": [
     "tabs", "storage"
