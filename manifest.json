@@ -5,17 +5,17 @@
 
   "description": "An extension designed to streamline your start up experience with Chrome!",
   "icons":{
-    "128": "icon128.png"
+    "128": "images/icon128.png"
   },
 
   "browser_action": {
-    "default_icon": "icon19.png",
+    "default_icon": "images/icon19.png",
     "default_title": "StartUp",
     "default_popup": "popup.html"
   },
 
   "background": {
-    "scripts": ["background.js", "group.js"]
+    "scripts": ["js/background.js", "js/group.js"]
   },
   "permissions": [
     "tabs", "storage"

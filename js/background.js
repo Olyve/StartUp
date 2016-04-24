@@ -3,6 +3,7 @@ var currentGroup;
 var groups = [];
 var options = [];
 
+// Short hand function to save the current data to storage
 var saveData = function () {
   // Save default options, currrentGroup, and groups
   chrome.storage.sync.set({'options': options, 'currentGroup': currentGroup, 'groups': groups}, function() {

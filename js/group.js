@@ -1,5 +1,5 @@
 // Create the Group class
-var Group = function (name, urls) {
+function Group(name, urls) {
   this.name = name;
   this.urls = urls;
 };
@@ -31,7 +31,7 @@ Group.prototype.rename = function (name) {
 Group.prototype.containsUrl = function (url) {
   var contains = false;
   for (var i = 0; i < this.urls.length; i++) {
-    if (this.urls[i] === url) {
+    if (this.urls[i] == url) {
       contains = true;
       break;
     }
