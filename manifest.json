@@ -15,8 +15,9 @@
   },
 
   "background": {
-    "scripts": ["js/background.js", "js/group.js"]
+    "scripts": ["js/jquery-2.2.3.min.js", "js/group.js", "js/background.js"]
   },
+  "options_page": "options.html",
   "permissions": [
     "tabs", "storage"
   ],

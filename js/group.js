@@ -2,16 +2,16 @@
 function Group(name, urls) {
   this.name = name;
   this.urls = urls;
-};
+}
 
 // Clears all urls from the group
 Group.prototype.clearUrls = function () {
-  this.urls = [];
+  this.urls.length = 0;
 };
 
 // Adds the specified url to the group
 Group.prototype.addUrl = function (url) {
-  this.urls.append(url);
+  this.urls.push(url);
 };
 
 // Removes the specified url from the group

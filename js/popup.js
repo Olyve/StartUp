@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   addUrlButton.addEventListener('click', function() {
     chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
       chrome.runtime.sendMessage({'message':'addUrl', 'url': tabs[0].url}, function(response) {
-        console.log(response);
+        console.log(response.message);
       }) // End runtime.sendMessage
     }); // End tabs.query
   }); // End addUrlButton event listener
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
   deleteUrlButton.addEventListener('click', function () {
     chrome.tabs.query({'active': true, 'currentWindow': true}, function(tabs) {
       chrome.runtime.sendMessage({'message': 'removeUrl', 'url':tabs[0].url}, function(response) {
-        console.log(response);
+        console.log(response.message);
       }); // End runtime.sendMessage
     }); // End tabs.query
   }); // End deleteUrlButton event listener

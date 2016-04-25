@@ -1,12 +1,12 @@
 // Global Variables
 var currentGroup;
-var groups = [];
-var options = [];
+var groups;
+var options;
 
 // Short hand function to save the current data to storage
 var saveData = function () {
   // Save default options, currrentGroup, and groups
-  chrome.storage.sync.set({'options': options, 'currentGroup': currentGroup, 'groups': groups}, function() {
+  chrome.storage.sync.set({'currentGroup': currentGroup, 'groups': groups}, function() {
     if (chrome.runtime.lastError) {
       console.error("Could not save because: " + chrome.runtime.lastError);
     }
@@ -20,7 +20,7 @@ chrome.storage.sync.get(function(items) {
     groups = items['groups'];
   } else { // Create default group and add to list of groups
     currentGroup = new Group('default', []);
-    groups = [currentGroup];
+    groups.push(currentGroup);
   }
 
   // Check for current group, if none set to first available group
@@ -33,9 +33,6 @@ chrome.storage.sync.get(function(items) {
   // Check for the options
   if (items['options']) {
     options = items['options'];
-  } else {
-    // No options, set the default options and save them
-    options['overrideHomepages'] = true;
   }
 
   saveData();
@@ -43,7 +40,7 @@ chrome.storage.sync.get(function(items) {
   // After data has been fetched bring up the tabs
   chrome.tabs.query({'currentWindow': true}, function(tabs) {
     for (var i = 0; i < currentGroup.urls.length; i++) {
-      if (options['overrideHomepages']) {
+      if (options.overrideHomepages) {
         if (tabs[i].url.length > 0) {
           chrome.tabs.update(tabs[0].id, {'url': currentGroup.urls[i]});
         } else {
@@ -61,24 +58,36 @@ chrome.storage.sync.get(function(items) {
 // Add message listener
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-  // If add url was sent
+  // addUrl
   if (request.message === 'addUrl') {
     console.log('Recieved message: ' + request.message);
     // Check if the group contains the url already
-    if (currentGroup.containsUrl(sender.url) === false) {
-      currentGroup.addUrl(sender.url);
+    if (Group.prototype.containsUrl.call(currentGroup, request.url) === false) {
+      Group.prototype.addUrl.call(currentGroup, request.url);
       saveData();
-      sendResponse({'message': 'Saved ' + sender.url});
+      sendResponse({'message': 'Saved ' + request.url});
     }
   }
 
-  // If remove url was sent
+  // removeUrl
   if (request.message === 'removeUrl') {
     // Check if the group contains the url
-    if (currentGroup.containsUrl(sender.url)) {
-      currentGroup.removeUrl(sender.url);
+    if (currentGroup.containsUrl(request.url)) {
+      currentGroup.removeUrl(request.url);
       saveData();
-      sendResponse({'message': 'Removed ' + sender.url})
+      sendResponse({'message': 'Removed ' + request.url})
     }
+  }
+
+  // clearAll
+  if (request.message === 'clearAll') {
+    Group.prototype.clearUrls.call(currentGroup);
+    saveData();
+    sendResponse({'message': 'Urls have been cleared.'});
+  }
+
+  // getCurrentGroupName
+  if (request.message === 'getCurrentGroupName') {
+    sendResponse({'name': currentGroup.name});
   }
 });
