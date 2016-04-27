@@ -6,17 +6,29 @@
     <script type="text/javascript" src="js/options.js"></script>
   </head>
   <body>
-    <h1>Options</h1>
-    <div id="options">
-      <p>Override default homepages <input type="checkbox" id="overrideHomepages" checked="checked" /></p>
-      <br />
-      <p>Save Changes <button type="button" id="saveChanges">Save</button></p>
-    </div>
-    <h1>Groups</h1>
-    <div id="groups">
-      <h3>Current Group: <span id="currentGroup"></span></h3>
-      <br />
-      <p>Clear all urls from the current group <button type="button" id="clearAll">Clear Urls</button></p>
+    <div id="content" class="center">
+      <h1 class="center">Options</h1>
+      <span id="status"></span>
+      <div id="options">
+        <p>Override pages <input type="checkbox" id="overridePages" checked="true" /></p>
+        <br />
+        <p>Save Changes <button type="button" id="saveChanges">Save</button></p>
+      </div>
+      <h1 class="center">Groups</h1>
+      <div id="groups">
+        <h2>Current Group: <span id="currentGroup"></span></h2>
+        <h3>Urls</h3>
+        <div id="urls">
+
+        </div>
+        <br />
+        <h3>Options</h3>
+        <p>
+          <button type="button" id="clearAll">Clear All Urls</button><br />
+          <button type="button" id="changeName">Change Group Name</button>
+            <input type="text" id="newName" size="20" value="Name"/> Maximum 12 characters
+        </p>
+      </div>
     </div>
   </body>
 </html>
