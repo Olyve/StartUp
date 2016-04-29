@@ -14,10 +14,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add listener to clearUrls
   document.getElementById('clearAll').addEventListener('click', function() {
-    chrome.runtime.sendMessage({'message': 'clearAll'}, function(response) {
-      console.log(response.message);
-      chrome.tabs.reload();
-    });
+    function clearAllConfirmation() {
+      var r = confirm('Do you really want to clear all url\'s');
+      if (r === true) {
+        chrome.runtime.sendMessage({
+          'message': 'clearAll'
+        }, function(response) {
+          console.log(response.message);
+          chrome.tabs.reload();
+        });
+      } else {
+        return false;
+      }
+    }
+    clearAllConfirmation();
   });
 
   // Add listener to saveChanges
