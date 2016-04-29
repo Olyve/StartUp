@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (request.message === 'changeName') {
       if (request.newName) {
         currentGroup.name = request.newName;
+        saveData();
         sendResponse({'message': 'Updated currentGroup.name'});
       } else {
         console.error('No new name was found in the requested message.');
