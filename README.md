@@ -1,5 +1,7 @@
 # StartUp
 #### A Google Chrome extension designed to customize your start up experience with Chrome.
+
+[![Join the chat at https://gitter.im/sgalizia/StartUp](https://badges.gitter.im/sgalizia/StartUp.svg)](https://gitter.im/sgalizia/StartUp?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Welcome to the StartUp repository! I designed this extension to help solve a problem that was bugging me about Chrome. I kept finding myself opening the same groups of tabs for specific tasks and it was getting old and repetitive. Making this extension was a large learning process for me and I am hoping that other who want to contribute can also learn something from it! There was some interest shown in the project and contributing and that is why I chose to make this project Open Source!
 
 ## Upcoming Features
